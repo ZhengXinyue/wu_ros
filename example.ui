@@ -50,7 +50,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="disarm_btn">
+         <widget class="QPushButton" name="unlock_btn">
           <property name="text">
            <string>解锁</string>
           </property>

@@ -39,7 +39,7 @@ class MyMainWindow(QMainWindow):
         self.disable_others()
         self.ui.start_btn.clicked.connect(self.enable_others)
         self.ui.stop_btn.clicked.connect(self.disable_others)
-        self.ui.disarm_btn.clicked.connect(self.uav_node.disarm)
+        self.ui.unlock_btn.clicked.connect(self.uav_node.idle)
         self.ui.takeoff_btn.clicked.connect(self.uav_node.takeoff)
         self.ui.landing_btn.clicked.connect(self.uav_node.land)
         self.ui.hold_btn.clicked.connect(self.uav_node.hold)

@@ -37,6 +37,10 @@ class UAVNode(QThread):
             publisher.publish(message)
 
     def idle(self):
+        """
+        解锁
+        :return:
+        """
         for message in self.messages:
             message.Mode = SwarmCommand.Idle
             message.yaw_ref = 999
@@ -68,7 +72,7 @@ class UAVNode(QThread):
 
     def disarm(self):
         """
-        解锁
+        上锁
         :return:
         """
         for message in self.messages:

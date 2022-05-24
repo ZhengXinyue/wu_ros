@@ -95,6 +95,20 @@
          </widget>
         </item>
         <item>
+         <widget class="QPushButton" name="change_formation_btn">
+          <property name="text">
+           <string>变化队形</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="send_pos_btn">
+          <property name="text">
+           <string>发送坐标</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <layout class="QVBoxLayout" name="verticalLayout_3">
           <property name="spacing">
            <number>0</number>
@@ -115,17 +129,10 @@
           </item>
          </layout>
         </item>
-        <item>
-         <widget class="QPushButton" name="change_formation_btn">
-          <property name="text">
-           <string>变化队形</string>
-          </property>
-         </widget>
-        </item>
        </layout>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="1,4">
+       <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="1,0">
         <item>
          <layout class="QVBoxLayout" name="verticalLayout_2">
           <item>

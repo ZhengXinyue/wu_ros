@@ -43,6 +43,7 @@ class MyMainWindow(QMainWindow):
         self.ui.takeoff_btn.clicked.connect(self.uav_node.takeoff)
         self.ui.landing_btn.clicked.connect(self.uav_node.land)
         self.ui.hold_btn.clicked.connect(self.uav_node.hold)
+        self.ui.send_pos_btn.clicked.connect(self.uav_node.publish_pos)
         self.ui.change_formation_btn.clicked.connect(lambda: self.uav_node.publish_formation(self.ui.formation.currentIndex()))
 
         self.marker_count = 1
@@ -71,7 +72,7 @@ class MyMainWindow(QMainWindow):
         self.initialize_canvas()
 
     def disable_others(self):
-        self.ui.disarm_btn.setEnabled(False)
+        self.ui.unlock_btn.setEnabled(False)
         self.ui.takeoff_btn.setEnabled(False)
         self.ui.landing_btn.setEnabled(False)
         self.ui.hold_btn.setEnabled(False)
@@ -81,7 +82,7 @@ class MyMainWindow(QMainWindow):
         self.ui.start_btn.setEnabled(True)
 
     def enable_others(self):
-        self.ui.disarm_btn.setEnabled(True)
+        self.ui.unlock_btn.setEnabled(True)
         self.ui.takeoff_btn.setEnabled(True)
         self.ui.landing_btn.setEnabled(True)
         self.ui.hold_btn.setEnabled(True)

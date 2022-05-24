@@ -21,7 +21,7 @@ class UAVNode(QThread):
         self.swarm_num_uav = 1
         self.publishers = []
         for i in range(self.swarm_num_uav):
-            publisher = rospy.Publisher('/uav%d' % i + '/prometheus/swarm_command', SwarmCommand, queue_size=1)
+            publisher = rospy.Publisher('/uav%d' % (i+1) + '/prometheus/swarm_command', SwarmCommand, queue_size=1)
             self.publishers.append(publisher)
 
         self.controller_num = 0
@@ -78,6 +78,17 @@ class UAVNode(QThread):
         for message in self.messages:
             message.Mode = SwarmCommand.Disarm
         self.publish_once()
+
+    def publish_pos(self):
+        for message in self.messages:
+            message.swarm_size = self.formation_size
+            message.position_ref[0] = self.virtual_leader_pos[0]
+            message.position_ref[1] = self.virtual_leader_pos[1]
+            message.position_ref[2] = self.virtual_leader_pos[2]
+            message.velocity_ref[0] = self.virtual_leader_vel[0]
+            message.velocity_ref[1] = self.virtual_leader_vel[1]
+            message.velocity_ref[2] = self.virtual_leader_vel[2]
+            message.yaw_ref = self.virtual_leader_yaw
 
     def publish_formation(self, formation_idx):
         if formation_idx == 0:

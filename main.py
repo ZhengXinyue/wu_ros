@@ -144,6 +144,7 @@ class MyMainWindow(QMainWindow):
         self.ui.send_pos_btn.setEnabled(False)
         self.ui.formation_size.setEnabled(False)
 
+        self.ui.uav_num.setEnabled(True)
         self.ui.start_btn.setEnabled(True)
 
     def enable_others(self):
@@ -158,6 +159,7 @@ class MyMainWindow(QMainWindow):
         self.ui.send_pos_btn.setEnabled(True)
         self.ui.formation_size.setEnabled(True)
 
+        self.ui.uav_num.setEnabled(False)
         self.ui.start_btn.setEnabled(False)
 
     def closeEvent(self, a0):

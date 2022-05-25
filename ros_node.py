@@ -30,6 +30,8 @@ class UAVNode(QThread):
         self.virtual_leader_yaw = 0
 
     def start_uav(self):
+        self.publishers.clear()
+        self.messages.clear()
         for i in range(self.swarm_num_uav):
             publisher = rospy.Publisher('/uav%d' % (i + 1) + '/prometheus/swarm_command', SwarmCommand, queue_size=1)
             self.publishers.append(publisher)

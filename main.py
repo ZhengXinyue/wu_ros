@@ -6,6 +6,7 @@ import sys
 import numpy as np
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 import matplotlib.pyplot as plt
+from matplotlib.ticker import FixedLocator, LinearLocator
 
 from PyQt5.QtWidgets import QVBoxLayout, QMessageBox, QHBoxLayout, QApplication, QWidget, QLabel, QPlainTextEdit, \
     QTextEdit, QMainWindow, QPushButton, QDialog
@@ -35,6 +36,7 @@ class MyMainWindow(QMainWindow):
         self.uav_figure = self.figure.add_subplot(111)
         self.initialize_canvas()
         plt.connect('button_press_event', self.canvas_mouse_event)
+        plt.connect('scroll_event', self.canvas_scroll_event)
 
         self.disable_others()
         self.ui.start_btn.clicked.connect(self.enable_others)
@@ -53,14 +55,35 @@ class MyMainWindow(QMainWindow):
     def initialize_canvas(self):
         self.uav_figure.set_title('Position')
         self.uav_figure.grid()
-        self.uav_figure.set_xlim(-1000, 1000)
-        self.uav_figure.set_ylim(-1000, 1000)
+        self.uav_figure.set_xlim(-500, 500)
+        self.uav_figure.set_ylim(-500, 500)
+        # self.uav_figure.xaxis.set_major_locator(FixedLocator(np.linspace(-500, 500, 21)))
+        # self.uav_figure.yaxis.set_major_locator(FixedLocator(np.linspace(-500, 500, 21)))
+        self.uav_figure.xaxis.set_major_locator(LinearLocator(numticks=20))
+        self.uav_figure.yaxis.set_major_locator(LinearLocator(numticks=20))
+        self.uav_figure.text(0, 0, 'origin', fontsize=12)
+        self.uav_figure.scatter(0, 0,  color='r', marker='o', s=50)
+
+    def canvas_scroll_event(self, event):
+        axtemp = event.inaxes
+        x_min, x_max = axtemp.get_xlim()
+        y_min, y_max = axtemp.get_ylim()
+        range_x = (x_max - x_min) / 2.0
+        range_y = (y_max - y_min) / 2.0
+        x_data, y_data = event.xdata, event.ydata
+        if event.button == 'down':
+            scale_factor = 1.1
+        if event.button == 'up':
+            scale_factor = 10.0 / 11
+        axtemp.set(xlim=(x_data - range_x * scale_factor, x_data + range_x * scale_factor))
+        axtemp.set(ylim=(y_data - range_y * scale_factor, y_data + range_y * scale_factor))
+        self.canvas.draw_idle()
 
     def canvas_mouse_event(self, event):
         x_data, y_data = event.xdata, event.ydata
         if x_data and y_data:
             self.uav_figure.scatter(x_data, y_data,  color='r', marker='*', s=50)
-            self.uav_figure.text(x_data-10, y_data+20, '%d' % self.marker_count, fontsize=12)
+            self.uav_figure.text(x_data, y_data, '%d' % self.marker_count, fontsize=12)
             self.canvas.draw()
             self.marker_count += 1
 

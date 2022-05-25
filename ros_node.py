@@ -29,6 +29,10 @@ class UAVNode(QThread):
         self.virtual_leader_vel = [0, 0, 0]
         self.virtual_leader_yaw = 0
 
+    def stop_uav(self):
+        self.publishers.clear()
+        self.messages.clear()
+
     def start_uav(self):
         self.publishers.clear()
         self.messages.clear()

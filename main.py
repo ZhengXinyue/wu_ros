@@ -147,6 +147,8 @@ class MyMainWindow(QMainWindow):
         self.ui.uav_num.setEnabled(True)
         self.ui.start_btn.setEnabled(True)
 
+        self.uav_node.stop_uav()
+
     def enable_others(self):
         self.ui.unlock_btn.setEnabled(True)
         self.ui.takeoff_btn.setEnabled(True)

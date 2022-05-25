@@ -43,34 +43,6 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="hold_btn">
-          <property name="text">
-           <string>Hold</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="unlock_btn">
-          <property name="text">
-           <string>解锁</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="takeoff_btn">
-          <property name="text">
-           <string>起飞</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="landing_btn">
-          <property name="text">
-           <string>降落</string>
-          </property>
-         </widget>
-        </item>
-        <item>
          <widget class="QComboBox" name="formation">
           <item>
            <property name="text">
@@ -95,6 +67,25 @@
          </widget>
         </item>
         <item>
+         <widget class="QComboBox" name="control_mode">
+          <item>
+           <property name="text">
+            <string>Position Control</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Velocity Control</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Accel Control</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item>
          <widget class="QPushButton" name="change_formation_btn">
           <property name="text">
            <string>变化队形</string>
@@ -107,6 +98,30 @@
            <string>发送坐标</string>
           </property>
          </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_4">
+          <item>
+           <widget class="QLabel" name="label">
+            <property name="text">
+             <string>formation size:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="formation_size">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>1</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
         <item>
          <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -132,13 +147,34 @@
        </layout>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="1,0">
+       <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="1,9">
         <item>
          <layout class="QVBoxLayout" name="verticalLayout_2">
           <item>
-           <widget class="QPushButton" name="pushButton">
+           <widget class="QPushButton" name="hold_btn">
             <property name="text">
-             <string>PushButton</string>
+             <string>Hold</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="unlock_btn">
+            <property name="text">
+             <string>解锁</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="takeoff_btn">
+            <property name="text">
+             <string>起飞</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="landing_btn">
+            <property name="text">
+             <string>降落</string>
             </property>
            </widget>
           </item>

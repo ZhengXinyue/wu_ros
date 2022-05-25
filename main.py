@@ -44,9 +44,11 @@ class MyMainWindow(QMainWindow):
         self.ui.landing_btn.clicked.connect(self.uav_node.land)
         self.ui.hold_btn.clicked.connect(self.uav_node.hold)
         self.ui.send_pos_btn.clicked.connect(self.uav_node.publish_pos)
-        self.ui.change_formation_btn.clicked.connect(lambda: self.uav_node.publish_formation(self.ui.formation.currentIndex()))
-
+        self.ui.change_formation_btn.clicked.connect(lambda: self.uav_node.publish_formation(self.ui.formation.currentIndex(), self.ui.control_mode.currentIndex()))
+        self.ui.formation_size.textEdited.connect(lambda: self.uav_node.change_formation_size(self.ui.formation_size.text()))
         self.marker_count = 1
+
+        self.uav_node.formation_size = int(self.ui.formation_size.text())
 
     def initialize_canvas(self):
         self.uav_figure.set_title('Position')
@@ -79,6 +81,10 @@ class MyMainWindow(QMainWindow):
         self.ui.change_formation_btn.setEnabled(False)
         self.ui.formation.setEnabled(False)
         self.ui.stop_btn.setEnabled(False)
+        self.ui.control_mode.setEnabled(False)
+        self.ui.send_pos_btn.setEnabled(False)
+        self.ui.formation_size.setEnabled(False)
+
         self.ui.start_btn.setEnabled(True)
 
     def enable_others(self):
@@ -89,6 +95,10 @@ class MyMainWindow(QMainWindow):
         self.ui.change_formation_btn.setEnabled(True)
         self.ui.formation.setEnabled(True)
         self.ui.stop_btn.setEnabled(True)
+        self.ui.control_mode.setEnabled(True)
+        self.ui.send_pos_btn.setEnabled(True)
+        self.ui.formation_size.setEnabled(True)
+
         self.ui.start_btn.setEnabled(False)
 
     def closeEvent(self, a0):

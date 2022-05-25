@@ -5,7 +5,8 @@ import rospy
 
 from PyQt5.QtCore import QThread, pyqtSignal
 
-from talker.msg import SwarmCommand
+# from talker.msg import SwarmCommand
+from my_swarm_command import SwarmCommand
 
 
 class UAVNode(QThread):
@@ -18,7 +19,7 @@ class UAVNode(QThread):
         self.stop_flag = False
         self.rate = rospy.Rate(1)
 
-        self.swarm_num_uav = 1
+        self.swarm_num_uav = 2
         self.publishers = []
         self.messages = []
         for i in range(self.swarm_num_uav):

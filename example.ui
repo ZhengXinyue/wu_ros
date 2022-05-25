@@ -178,6 +178,20 @@
             </property>
            </widget>
           </item>
+          <item>
+           <widget class="QPushButton" name="start_record_btn">
+            <property name="text">
+             <string>开始记录</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="end_record_btn">
+            <property name="text">
+             <string>终止记录</string>
+            </property>
+           </widget>
+          </item>
          </layout>
         </item>
         <item>

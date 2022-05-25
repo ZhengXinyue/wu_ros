@@ -1,7 +1,11 @@
 #!/usr/bin/python3
 # coding=utf-8
 import os
+import signal
 import sys
+import subprocess
+import shlex
+from cmd import Cmd
 
 import numpy as np
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
@@ -48,9 +52,28 @@ class MyMainWindow(QMainWindow):
         self.ui.send_pos_btn.clicked.connect(self.uav_node.publish_pos)
         self.ui.change_formation_btn.clicked.connect(lambda: self.uav_node.publish_formation(self.ui.formation.currentIndex(), self.ui.control_mode.currentIndex()))
         self.ui.formation_size.textEdited.connect(lambda: self.uav_node.change_formation_size(self.ui.formation_size.text()))
+        self.ui.start_record_btn.clicked.connect(self.start_record)
+        self.ui.end_record_btn.clicked.connect(self.end_record)
         self.marker_count = 1
-
         self.uav_node.formation_size = int(self.ui.formation_size.text())
+        self.record_process = None
+
+    def start_record(self):
+        all_topic = ''
+        for i in range(1, self.uav_node.swarm_num_uav+1):
+            current_topic = '/uav%d/prometheus/swarm_command /uav%d/prometheus/drone_state ' % (i, i)
+            all_topic += current_topic
+        shell_command = 'rosbag record ' + all_topic
+        print(shell_command)
+        self.record_process = subprocess.Popen(shlex.split(shell_command), shell=False, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        self.ui.end_record_btn.setEnabled(True)
+        self.ui.start_record_btn.setEnabled(False)
+
+    def end_record(self):
+        if self.record_process is not None:
+            self.record_process.send_signal(signal.SIGINT)
+            self.ui.end_record_btn.setEnabled(False)
+            self.ui.start_record_btn.setEnabled(True)
 
     def initialize_canvas(self):
         self.uav_figure.set_title('Position')
@@ -65,6 +88,9 @@ class MyMainWindow(QMainWindow):
         self.uav_figure.scatter(0, 0,  color='r', marker='o', s=50)
 
     def canvas_scroll_event(self, event):
+        """
+        滚轮事件
+        """
         axtemp = event.inaxes
         x_min, x_max = axtemp.get_xlim()
         y_min, y_max = axtemp.get_ylim()
@@ -80,6 +106,9 @@ class MyMainWindow(QMainWindow):
         self.canvas.draw_idle()
 
     def canvas_mouse_event(self, event):
+        """
+        鼠标点击事件
+        """
         x_data, y_data = event.xdata, event.ydata
         if x_data and y_data:
             self.uav_figure.scatter(x_data, y_data,  color='r', marker='*', s=50)

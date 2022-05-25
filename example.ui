@@ -16,7 +16,7 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout_2">
     <item>
-     <layout class="QVBoxLayout" name="verticalLayout" stretch="1,100">
+     <layout class="QVBoxLayout" name="verticalLayout" stretch="1,80">
       <property name="spacing">
        <number>6</number>
       </property>
@@ -147,9 +147,9 @@
        </layout>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="1,9">
+       <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="1,8">
         <item>
-         <layout class="QVBoxLayout" name="verticalLayout_2" stretch="1,3,3,3,3,3,3">
+         <layout class="QVBoxLayout" name="verticalLayout_2" stretch="1,6">
           <item>
            <layout class="QFormLayout" name="formLayout">
             <item row="0" column="0">
@@ -183,46 +183,73 @@
            </layout>
           </item>
           <item>
-           <widget class="QPushButton" name="hold_btn">
-            <property name="text">
-             <string>Hold</string>
+           <layout class="QVBoxLayout" name="verticalLayout_4">
+            <property name="spacing">
+             <number>15</number>
             </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="unlock_btn">
-            <property name="text">
-             <string>解锁</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="takeoff_btn">
-            <property name="text">
-             <string>起飞</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="landing_btn">
-            <property name="text">
-             <string>降落</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="start_record_btn">
-            <property name="text">
-             <string>开始记录</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="end_record_btn">
-            <property name="text">
-             <string>终止记录</string>
-            </property>
-           </widget>
+            <item>
+             <widget class="QPushButton" name="launch_btn">
+              <property name="text">
+               <string>Launch</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="unlock_btn">
+              <property name="text">
+               <string>解锁</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="takeoff_btn">
+              <property name="text">
+               <string>起飞</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="hold_btn">
+              <property name="text">
+               <string>Hold</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="landing_btn">
+              <property name="text">
+               <string>降落</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="start_record_btn">
+              <property name="text">
+               <string>开始记录</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="end_record_btn">
+              <property name="text">
+               <string>终止记录</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="verticalSpacer">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
           </item>
          </layout>
         </item>

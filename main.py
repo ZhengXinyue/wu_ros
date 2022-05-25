@@ -35,8 +35,8 @@ class MyMainWindow(QMainWindow):
         self.uav_node.start()
 
         self.uav_node.swarm_num_uav = int(self.ui.uav_num.text())
-        self.uav_node.virtual_leader_pos[2] = float(self.ui.z_value)
-        self.uav_node.formation_size = float(self.ui.formation_size)
+        self.uav_node.virtual_leader_pos[2] = float(self.ui.z_value.text())
+        self.uav_node.formation_size = float(self.ui.formation_size.text())
 
         self.figure = plt.figure(facecolor='lightgrey')
         self.canvas = FigureCanvas(self.figure)
@@ -78,7 +78,6 @@ class MyMainWindow(QMainWindow):
             current_topic = '/uav%d/prometheus/swarm_command /uav%d/prometheus/drone_state ' % (i, i)
             all_topic += current_topic
         shell_command = 'rosbag record ' + all_topic
-        print(shell_command)
         self.record_process = subprocess.Popen(shlex.split(shell_command), shell=False, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
         self.ui.end_record_btn.setEnabled(True)
         self.ui.start_record_btn.setEnabled(False)

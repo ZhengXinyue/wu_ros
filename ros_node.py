@@ -25,6 +25,7 @@ class UAVNode(QThread):
 
         self.control_mode = 0
         self.formation_size = 1
+        self.formation_idx = 0
         self.virtual_leader_pos = [0, 0, 1]
         self.virtual_leader_vel = [0, 0, 0]
         self.virtual_leader_yaw = 0
@@ -63,10 +64,11 @@ class UAVNode(QThread):
         except ValueError:
             print('formation size should be a number')
 
-    def change_mode(self):
-        for message in self.messages:
-            message.Mode = SwarmCommand.Idle
-        # self.publish_once()
+    def change_formation(self, formation_idx):
+        self.formation_idx = formation_idx
+
+    def change_control_mode(self, control_mode):
+        self.control_mode = control_mode
 
     def idle(self):
         """
@@ -123,28 +125,27 @@ class UAVNode(QThread):
             message.yaw_ref = self.virtual_leader_yaw
         self.publish_once()
 
-    def publish_formation(self, formation_idx, control_mode):
-        if formation_idx == 0:
+    def publish_formation(self):
+        if self.formation_idx == 0:
             for message in self.messages:
                 message.swarm_shape = SwarmCommand.One_column
-        elif formation_idx == 1:
+        elif self.formation_idx == 1:
             for message in self.messages:
                 message.swarm_shape = SwarmCommand.Triangle
-        elif formation_idx == 2:
+        elif self.formation_idx == 2:
             for message in self.messages:
                 message.swarm_shape = SwarmCommand.Square
-        elif formation_idx == 3:
+        elif self.formation_idx == 3:
             for message in self.messages:
                 message.swarm_shape = SwarmCommand.Circular
 
-        self.control_mode = control_mode
-        if control_mode == 0:
+        if self.control_mode == 0:
             for message in self.messages:
                 message.Mode = SwarmCommand.Position_Control
-        if control_mode == 1:
+        if self.control_mode == 1:
             for message in self.messages:
                 message.Mode = SwarmCommand.Velocity_Control
-        if control_mode == 2:
+        if self.control_mode == 2:
             for message in self.messages:
                 message.Mode = SwarmCommand.Accel_Control
 

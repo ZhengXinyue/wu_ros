@@ -34,6 +34,10 @@ class MyMainWindow(QMainWindow):
         self.uav_node = UAVNode()
         self.uav_node.start()
 
+        self.uav_node.swarm_num_uav = int(self.ui.uav_num.text())
+        self.uav_node.virtual_leader_pos[2] = float(self.ui.z_value)
+        self.uav_node.formation_size = float(self.ui.formation_size)
+
         self.figure = plt.figure(facecolor='lightgrey')
         self.canvas = FigureCanvas(self.figure)
         self.ui.canvas_layout.addWidget(self.canvas)
@@ -52,10 +56,13 @@ class MyMainWindow(QMainWindow):
         self.ui.landing_btn.clicked.connect(self.uav_node.land)
         self.ui.hold_btn.clicked.connect(self.uav_node.hold)
         self.ui.send_pos_btn.clicked.connect(self.uav_node.publish_pos)
-        self.ui.change_formation_btn.clicked.connect(lambda: self.uav_node.publish_formation(self.ui.formation.currentIndex(), self.ui.control_mode.currentIndex()))
-        self.ui.formation_size.textEdited.connect(lambda: self.uav_node.change_formation_size(self.ui.formation_size.text()))
+        self.ui.change_formation_btn.clicked.connect(self.uav_node.publish_formation)
         self.ui.start_record_btn.clicked.connect(self.start_record)
         self.ui.end_record_btn.clicked.connect(self.end_record)
+
+        self.ui.control_mode.currentIndexChanged.connect(lambda: self.uav_node.change_control_mode(self.ui.control_mode.currentIndex()))
+        self.ui.formation.currentIndexChanged.connect(lambda: self.uav_node.change_formation(self.ui.formation.currentIndex()))
+        self.ui.formation_size.textEdited.connect(lambda: self.uav_node.change_formation_size(self.ui.formation_size.text()))
         self.ui.z_value.textEdited.connect(lambda: self.uav_node.change_z_value(self.ui.z_value.text()))
         self.ui.uav_num.textEdited.connect(lambda: self.uav_node.change_uav_num(self.ui.uav_num.text()))
         self.marker_count = 1
@@ -138,11 +145,8 @@ class MyMainWindow(QMainWindow):
         self.ui.landing_btn.setEnabled(False)
         self.ui.hold_btn.setEnabled(False)
         self.ui.change_formation_btn.setEnabled(False)
-        self.ui.formation.setEnabled(False)
         self.ui.stop_btn.setEnabled(False)
-        self.ui.control_mode.setEnabled(False)
         self.ui.send_pos_btn.setEnabled(False)
-        self.ui.formation_size.setEnabled(False)
 
         self.ui.uav_num.setEnabled(True)
         self.ui.start_btn.setEnabled(True)
@@ -155,11 +159,8 @@ class MyMainWindow(QMainWindow):
         self.ui.landing_btn.setEnabled(True)
         self.ui.hold_btn.setEnabled(True)
         self.ui.change_formation_btn.setEnabled(True)
-        self.ui.formation.setEnabled(True)
         self.ui.stop_btn.setEnabled(True)
-        self.ui.control_mode.setEnabled(True)
         self.ui.send_pos_btn.setEnabled(True)
-        self.ui.formation_size.setEnabled(True)
 
         self.ui.uav_num.setEnabled(False)
         self.ui.start_btn.setEnabled(False)

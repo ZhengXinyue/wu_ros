@@ -43,6 +43,7 @@ class MyMainWindow(QMainWindow):
         plt.connect('scroll_event', self.canvas_scroll_event)
 
         self.disable_others()
+        self.ui.end_record_btn.setEnabled(False)
         self.ui.start_btn.clicked.connect(self.enable_others)
         self.ui.stop_btn.clicked.connect(self.disable_others)
         self.ui.unlock_btn.clicked.connect(self.uav_node.idle)

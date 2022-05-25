@@ -10,7 +10,6 @@ from my_swarm_command import SwarmCommand
 
 
 class UAVNode(QThread):
-    data_arrive = pyqtSignal(name='data_signal')
 
     def __init__(self):
         super().__init__()

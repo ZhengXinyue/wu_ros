@@ -19,13 +19,9 @@ class UAVNode(QThread):
         self.stop_flag = False
         self.rate = rospy.Rate(1)
 
-        self.swarm_num_uav = 2
+        self.swarm_num_uav = 1
         self.publishers = []
         self.messages = []
-        for i in range(self.swarm_num_uav):
-            publisher = rospy.Publisher('/uav%d' % (i + 1) + '/prometheus/swarm_command', SwarmCommand, queue_size=1)
-            self.publishers.append(publisher)
-            self.messages.append(SwarmCommand())
 
         self.control_mode = 0
         self.formation_size = 1
@@ -33,9 +29,27 @@ class UAVNode(QThread):
         self.virtual_leader_vel = [0, 0, 0]
         self.virtual_leader_yaw = 0
 
+    def start_uav(self):
+        for i in range(self.swarm_num_uav):
+            publisher = rospy.Publisher('/uav%d' % (i + 1) + '/prometheus/swarm_command', SwarmCommand, queue_size=1)
+            self.publishers.append(publisher)
+            self.messages.append(SwarmCommand())
+
     def publish_once(self):
         for message, publisher in zip(self.messages, self.publishers):
             publisher.publish(message)
+
+    def change_uav_num(self, uav_num):
+        try:
+            self.swarm_num_uav = int(uav_num)
+        except ValueError:
+            print('uav num should be a number')
+
+    def change_z_value(self, z_value):
+        try:
+            self.virtual_leader_pos[2] = float(z_value)
+        except ValueError:
+            print('z value should be a number')
 
     def change_formation_size(self, formation_size):
         try:

@@ -45,6 +45,7 @@ class MyMainWindow(QMainWindow):
         self.disable_others()
         self.ui.end_record_btn.setEnabled(False)
         self.ui.start_btn.clicked.connect(self.enable_others)
+        self.ui.start_btn.clicked.connect(self.uav_node.start_uav)
         self.ui.stop_btn.clicked.connect(self.disable_others)
         self.ui.unlock_btn.clicked.connect(self.uav_node.idle)
         self.ui.takeoff_btn.clicked.connect(self.uav_node.takeoff)
@@ -55,8 +56,13 @@ class MyMainWindow(QMainWindow):
         self.ui.formation_size.textEdited.connect(lambda: self.uav_node.change_formation_size(self.ui.formation_size.text()))
         self.ui.start_record_btn.clicked.connect(self.start_record)
         self.ui.end_record_btn.clicked.connect(self.end_record)
+        self.ui.z_value.textEdited.connect(lambda: self.uav_node.change_z_value(self.ui.z_value.text()))
+        self.ui.uav_num.textEdited.connect(lambda: self.uav_node.change_uav_num(self.ui.uav_num.text()))
         self.marker_count = 1
+
+        self.uav_node.virtual_leader_pos[2] = float(self.ui.z_value.text())
         self.uav_node.formation_size = int(self.ui.formation_size.text())
+        self.uav_node.swarm_num_uav = int(self.ui.uav_num.text())
         self.record_process = None
 
     def start_record(self):
@@ -99,9 +105,9 @@ class MyMainWindow(QMainWindow):
         range_y = (y_max - y_min) / 2.0
         x_data, y_data = event.xdata, event.ydata
         if event.button == 'down':
-            scale_factor = 1.1
+            scale_factor = 10.25 / 10
         if event.button == 'up':
-            scale_factor = 10.0 / 11
+            scale_factor = 10.0 / 10.25
         axtemp.set(xlim=(x_data - range_x * scale_factor, x_data + range_x * scale_factor))
         axtemp.set(ylim=(y_data - range_y * scale_factor, y_data + range_y * scale_factor))
         self.canvas.draw_idle()

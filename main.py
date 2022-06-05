@@ -1,22 +1,17 @@
 #!/usr/bin/python3
 # coding=utf-8
-import os
 import signal
 import sys
 import subprocess
 import shlex
-from cmd import Cmd
 
-import numpy as np
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 import matplotlib.pyplot as plt
-from matplotlib.ticker import FixedLocator, LinearLocator
+from matplotlib.ticker import LinearLocator
 
-from PyQt5.QtWidgets import QVBoxLayout, QMessageBox, QHBoxLayout, QApplication, QWidget, QLabel, QPlainTextEdit, \
-    QTextEdit, QMainWindow, QPushButton, QDialog
-from PyQt5 import QtGui, QtWidgets, QtCore
-from PyQt5.QtCore import QThread, pyqtSignal, qDebug, QSettings, QVariant, Qt, QObject, QPoint
-from PyQt5.QtGui import QIcon, QPixmap
+from PyQt5.QtWidgets import QApplication, QMainWindow
+from PyQt5.QtCore import QSettings
+from PyQt5.QtGui import QIcon
 
 from ui_example import Ui_MainWindow
 from ros_node import UAVNode
@@ -188,7 +183,7 @@ class MyMainWindow(QMainWindow):
 
 if __name__ == '__main__':
     # 工作目录改为catkin_wu/src/talker/src
-    os.chdir('src/talker/src')
+    # os.chdir('src/talker/src')
     app = QApplication(sys.argv)
 
     w = MyMainWindow()
